@@ -17,7 +17,7 @@
         android:layout_marginStart="0dp"
         android:background="?attr/colorPrimary"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLinearLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +43,7 @@
         tools:layout_constraintTop_creator="1" />
 
     <LinearLayout
-        android:id="@+id/linearLayout11"
+        android:id="@+id/pumpingListLinearLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="0dp"
@@ -51,10 +51,10 @@
         app:layout_constraintBottom_toTopOf="@+id/bottomButtonLinearLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+        app:layout_constraintTop_toBottomOf="@+id/buttonLinearLayout">
 
         <ListView
-            android:id="@+id/listView"
+            android:id="@+id/pumpingListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginEnd="0dp"
@@ -70,12 +70,12 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout10"
+        android:id="@+id/buttonLinearLayout"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="@android:color/holo_orange_light"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
+        app:layout_constraintBottom_toTopOf="@+id/pumpingListLinearLayout"
         app:layout_constraintHeight_max="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -113,7 +113,7 @@
         app:layout_constraintHeight_max="40dp"
         app:layout_constraintLeft_toLeftOf="@+id/include"
         app:layout_constraintRight_toRightOf="@+id/include"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+        app:layout_constraintTop_toBottomOf="@+id/pumpingListLinearLayout">
 
         <ImageButton
             android:id="@+id/imageButton4"

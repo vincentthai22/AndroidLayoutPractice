@@ -13,10 +13,11 @@
         android:id="@+id/weightTotalDataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView7"
-        android:layout_alignStart="@+id/weightTotalTextView"
-        android:layout_alignTop="@+id/averageWeightDataTextView"
-        android:text="0.6" />
+        android:text="0.6"
+        android:layout_alignBaseline="@+id/averageWeightDataTextView"
+        android:layout_alignBottom="@+id/averageWeightDataTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="33dp" />
 
     <TextView
         android:id="@+id/averageWeightDataTextView"
@@ -31,10 +32,10 @@
         android:id="@+id/pumpingsDataTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="2.0"
         android:layout_alignBaseline="@+id/dateTypeTextView"
         android:layout_alignBottom="@+id/dateTypeTextView"
-        android:layout_alignStart="@+id/pumpingsTextView"
-        android:text="2.0" />
+        android:layout_alignEnd="@+id/pumpingsTextView" />
 
     <TextView
         android:id="@+id/weightTotalTextView"
@@ -43,8 +44,8 @@
         android:layout_alignBaseline="@+id/averageWeightTextView"
         android:layout_alignBottom="@+id/averageWeightTextView"
         android:layout_marginStart="8dp"
-        android:layout_toEndOf="@+id/averageWeightTextView"
-        android:text="oz total" />
+        android:text="oz total"
+        android:layout_alignEnd="@+id/weightTotalDataTextView" />
 
     <TextView
         android:id="@+id/averageWeightTextView"
@@ -52,8 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/pumpingsTextView"
-        android:text="oz avg" />
+        android:text="oz avg"
+        android:layout_alignEnd="@+id/averageWeightDataTextView" />
 
     <TextView
         android:id="@+id/pumpingsTextView"
@@ -68,8 +69,7 @@
         android:id="@+id/dateTypeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:text="(cumulative)"
         android:layout_below="@+id/dateTextView"
-        android:layout_marginTop="14dp"
-        android:text="(cumulative)" />
+        android:layout_alignParentStart="true" />
 </RelativeLayout>

@@ -10,6 +10,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
+
+import com.example.vincent.babynursinglayouts.models.PumpingEntry;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ListView pumpingListView = (ListView) findViewById(R.id.pumpingListView);
+
+        List<PumpingEntry> someList = new ArrayList<>();
+        someList.add(new PumpingEntry(2, 0.3f, 0.6f));
+
+        PumpingArrayAdapter adapter = new PumpingArrayAdapter(this, R.layout.list_view_cell_pumping, someList);
+        pumpingListView.setAdapter(adapter);
 
     }
     @Override
