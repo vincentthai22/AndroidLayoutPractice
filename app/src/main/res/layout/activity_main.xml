@@ -1,27 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.vincent.babynursinglayouts.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginStart="0dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.51"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        tools:layout_conversion_absoluteHeight="56dp"
+        tools:layout_conversion_absoluteWidth="411dp"
+        tools:layout_conversion_absoluteX="0dp"
+        tools:layout_conversion_absoluteY="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
-    </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_main"
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_main"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/bottomButtonLinearLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginStart="0dp"
+            tools:layout_conversion_absoluteHeight="479dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="115dp"
+            tools:layout_editor_absoluteY="115dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout10"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@android:color/holo_orange_light"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout11"
+        app:layout_constraintHeight_max="60dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="130dp"
+            android:layout_marginRight="130dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="START"
+            android:textColor="@color/colorAccent"
+            tools:layout_conversion_absoluteHeight="40dp"
+            tools:layout_conversion_absoluteWidth="161dp"
+            tools:layout_conversion_absoluteX="125dp"
+            tools:layout_conversion_absoluteY="65dp"
+            tools:layout_editor_absoluteX="125dp"
+            tools:layout_editor_absoluteY="65dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomButtonLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintHeight_max="40dp"
+        app:layout_constraintLeft_toLeftOf="@+id/include"
+        app:layout_constraintRight_toRightOf="@+id/include"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/arrow_up_float"
+            tools:layout_conversion_absoluteHeight="31dp"
+            tools:layout_conversion_absoluteWidth="66dp"
+            tools:layout_conversion_absoluteX="345dp"
+            tools:layout_conversion_absoluteY="600dp"
+            tools:layout_editor_absoluteX="345dp"
+            tools:layout_editor_absoluteY="600dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/ic_launcher_round"
+            tools:layout_conversion_absoluteHeight="58dp"
+            tools:layout_conversion_absoluteWidth="98dp"
+            tools:layout_conversion_absoluteX="246dp"
+            tools:layout_conversion_absoluteY="600dp"
+            tools:layout_editor_absoluteX="246dp"
+            tools:layout_editor_absoluteY="600dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star_big_off"
+            tools:layout_conversion_absoluteHeight="52dp"
+            tools:layout_conversion_absoluteWidth="82dp"
+            tools:layout_conversion_absoluteX="65dp"
+            tools:layout_conversion_absoluteY="600dp"
+            tools:layout_editor_absoluteX="65dp"
+            tools:layout_editor_absoluteY="600dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@mipmap/ic_launcher"
+            tools:layout_conversion_absoluteHeight="58dp"
+            tools:layout_conversion_absoluteWidth="98dp"
+            tools:layout_conversion_absoluteX="148dp"
+            tools:layout_conversion_absoluteY="600dp"
+            tools:layout_editor_absoluteX="148dp"
+            tools:layout_editor_absoluteY="600dp" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/arrow_down_float"
+            tools:layout_conversion_absoluteHeight="31dp"
+            tools:layout_conversion_absoluteWidth="65dp"
+            tools:layout_conversion_absoluteX="0dp"
+            tools:layout_conversion_absoluteY="600dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="600dp" />
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>
