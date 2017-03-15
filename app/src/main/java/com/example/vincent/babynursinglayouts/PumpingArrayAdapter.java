@@ -1,21 +1,15 @@
 package com.example.vincent.babynursinglayouts;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.vincent.babynursinglayouts.models.PumpingEntry;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +56,7 @@ public class PumpingArrayAdapter<T> extends ArrayAdapter {
             view = convertView;
         switch(resource) {
 
-            case R.layout.list_view_cell_pumping:
+            case R.layout.list_view_header_cell_pumping:
                 TextView pumpingsTextView = (TextView) view.findViewById(R.id.pumpingsDataTextView);
                 TextView averageWeightTextView = (TextView) view.findViewById(R.id.averageWeightDataTextView);
                 TextView totalWeightTextView = (TextView) view.findViewById(R.id.weightTotalDataTextView);

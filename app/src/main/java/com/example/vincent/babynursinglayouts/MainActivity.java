@@ -2,14 +2,13 @@ package com.example.vincent.babynursinglayouts;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.example.vincent.babynursinglayouts.models.PumpingEntry;
@@ -30,10 +29,15 @@ public class MainActivity extends AppCompatActivity {
 
         List<PumpingEntry> someList = new ArrayList<>();
         someList.add(new PumpingEntry(2, 0.3f, 0.6f));
-
-        PumpingArrayAdapter adapter = new PumpingArrayAdapter(this, R.layout.list_view_cell_pumping, someList);
+        someList.add(new PumpingEntry(2, 0.3f, 0.6f));
+        View header = (View)getLayoutInflater().inflate(R.layout.list_view_cell_pumping, null);
+        pumpingListView.addHeaderView(header);
+        PumpingArrayAdapter adapter = new PumpingArrayAdapter(this, R.layout.list_view_header_cell_pumping, someList);
         pumpingListView.setAdapter(adapter);
 
+        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        ExpandableListAdapter eAdapter = new PumpingExpandableListAdapter(this, someList);
+        expandableListView.setAdapter(eAdapter);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

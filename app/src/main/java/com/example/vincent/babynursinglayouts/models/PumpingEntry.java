@@ -1,18 +1,32 @@
 package com.example.vincent.babynursinglayouts.models;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by vincent on 3/14/17.
  */
 
 public class PumpingEntry {
 
-    int totalPumps;
-    float averageWeight, totalWeight;
+    private int totalPumps;
+    private float averageWeight, totalWeight;
+
+    private List<String> pumpingRecords;
 
     public PumpingEntry(int totalPumps, float averageWeight, float totalWeight){
         this.totalPumps = totalPumps;
         this.averageWeight = averageWeight;
         this.totalWeight = totalWeight;
+        pumpingRecords = new ArrayList<>();
+        for(int i = 1 ; i < 24;i++){
+            if (i < 13)
+                pumpingRecords.add(i+":00 " +((i!=12) ? "am" : "pm") );
+            else
+                pumpingRecords.add(i-12+"00 pm");
+
+        }
     }
 
 
@@ -38,6 +52,10 @@ public class PumpingEntry {
 
     public float getTotalWeight() {
         return totalWeight;
+    }
+
+    public List<String> getPumpingRecords() {
+        return pumpingRecords;
     }
 
 
