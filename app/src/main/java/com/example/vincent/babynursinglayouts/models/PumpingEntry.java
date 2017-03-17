@@ -24,7 +24,7 @@ public class PumpingEntry {
             if (i < 13)
                 pumpingRecords.add(i+":00 " +((i!=12) ? "am" : "pm") );
             else
-                pumpingRecords.add(i-12+"00 pm");
+                pumpingRecords.add(i-12+":00 pm");
 
         }
     }

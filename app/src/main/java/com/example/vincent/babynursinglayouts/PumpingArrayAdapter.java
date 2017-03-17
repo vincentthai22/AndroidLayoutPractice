@@ -41,6 +41,13 @@ public class PumpingArrayAdapter<T> extends ArrayAdapter {
     }
 
     @Override
+    public boolean isEnabled(int position){
+        if (position % 4 == 0)
+            return false;
+        return true;
+    }
+
+    @Override
     public T getItem(int position){
         return list.get(position);
     }
@@ -51,7 +58,20 @@ public class PumpingArrayAdapter<T> extends ArrayAdapter {
         TextView text, rightText;
         ImageView img;
         if(convertView == null)
-            view = mInflater.inflate(resource,parent,false);
+            if (resource == R.layout.list_view_new_pumping_entry_header_cell)   //specifically for new pumping entry page.
+                if(position % 4 == 0) {//we have a header entry
+                    this.resource=resource;
+                    resource = R.layout.list_view_new_pumping_entry_header_cell;
+                    view = mInflater.inflate(resource, parent, false); //we have a header entry
+
+                } else {//we have a list entry
+
+                    this.resource=resource;
+                    resource = R.layout.list_view_new_pumping_entry;
+                    view = mInflater.inflate(resource, parent, false);
+                }
+            else
+                view = mInflater.inflate(resource,parent,false); //default call
         else
             view = convertView;
         switch(resource) {
@@ -65,59 +85,22 @@ public class PumpingArrayAdapter<T> extends ArrayAdapter {
                 averageWeightTextView.setText(pumpingEntry.getAverageWeight()+"");
                 totalWeightTextView.setText(pumpingEntry.getTotalWeight()+"");
                 return view;
-            /*case R.layout.list_survey_item:
 
-                List<String> questionAndOptions = (ArrayList) getItem(position); //index 0 = question, > 0 = options
-                TextView questionTextView = (TextView) view.findViewById(R.id.questionTextView);
-                LinearLayout buttonBar = (LinearLayout) view.findViewById(R.id.buttonBarLayout);
-                buttonBar.setDividerPadding(10);
-                int width = 0;
-                buttonBar.removeAllViews();
-                int i = 0;
-                if(questionAndOptions.size()>1)
-                    for (Object questionOrOption : questionAndOptions) {
-                        if (i == 0)
-                            questionTextView.setText((String) questionOrOption);
-                        else {
-                            final Button newOptionButton = new Button(this.getContext());
-                            newOptionButton.setId(position);
-                            newOptionButton.setBackgroundColor(Color.GRAY);
-                            newOptionButton.setTextColor(Color.BLACK);
-                            newOptionButton.setText((String) questionOrOption);
-                            newOptionButton.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    if( ((ColorDrawable) newOptionButton.getBackground()).getColor() == Color.GRAY) {
-                                        newOptionButton.setBackgroundColor(Color.GREEN);
-                                        answers.remove(position);
-                                        answers.add(position, (String) newOptionButton.getText());
-                                    } else {
-                                        newOptionButton.setBackgroundColor(Color.GRAY);
-                                        answers.remove(position);
-                                    }
-                                    Log.d("buttonId", newOptionButton.getId()+"");
-                                }
+            case R.layout.list_view_new_pumping_entry_header_cell:
+                TextView header = (TextView) view.findViewById(R.id.newPumpingHeaderTextView);
+                try {
+                    header.setText(((List<String>) getItem(position)).get(0));
+                } catch (NullPointerException e){
 
-                            });
-                            buttonBar.addView(newOptionButton);
+                }
 
-
-                        }
-                        i++;
-                    }
-                else
-                    questionTextView.setText("Survey");
                 return view;
-
-            case R.layout.list_survey_entry_item:
-                List<String> questionAndAnswer = (ArrayList<String>) getItem(position);
-                questionTextView = (TextView) view.findViewById(R.id.questionTextView);
-                TextView answerTextView = (TextView) view.findViewById(R.id.answerTextView);
-                questionTextView.setText(questionAndAnswer.get(0));
-                answerTextView.setText(questionAndAnswer.get(1));*/
-
-
-
+            case R.layout.list_view_new_pumping_entry:
+                TextView cellHeader = (TextView) view.findViewById(R.id.newPumpingCellHeaderTextView);
+                TextView userEntry = (TextView) view.findViewById(R.id.newPumpingUserEntryTextView);
+                cellHeader.setText(((List<String>) getItem(position)).get(0));
+                userEntry.setText(((List<String>) getItem(position)).get(1));
+                return view;
         }
         return view;
     }

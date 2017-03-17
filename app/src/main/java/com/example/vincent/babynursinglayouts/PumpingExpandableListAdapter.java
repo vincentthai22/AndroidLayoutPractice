@@ -66,7 +66,7 @@ public class PumpingExpandableListAdapter extends BaseExpandableListAdapter {
         View view;
         if(convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (groupPosition == 0)
+            if (groupPosition != 0)
                 view = layoutInflater.inflate(R.layout.list_view_cell_pumping,parent, false);
             else
                 view = layoutInflater.inflate(R.layout.list_view_header_cell_pumping,parent,false);

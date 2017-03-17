@@ -36,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
         pumpingListView.setAdapter(adapter);
 
         ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if (groupPosition == 0)
+                    return true;
+                return false;
+            }
+        });
         ExpandableListAdapter eAdapter = new PumpingExpandableListAdapter(this, someList);
         expandableListView.setAdapter(eAdapter);
     }
@@ -48,10 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_pumping) {
+            addButtonHandler();
             return true;
         } else if (id == android.R.id.home){
-            Intent intent = getIntent();
-            setResult(RESULT_OK,intent);
             this.finish();
             return true;
         }
@@ -65,7 +72,14 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.action_settings);
         item.setVisible(false);
+        menu.findItem(R.id.action_done).setVisible(false);
 
         return true;
     }
+
+    public void addButtonHandler(){
+        Intent intent = new Intent(this, NewPumpingEntryActivity.class);
+        this.startActivity(intent);
+    }
+
 }
