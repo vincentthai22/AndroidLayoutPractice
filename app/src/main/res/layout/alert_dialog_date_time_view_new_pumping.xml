@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/cancelButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorButtonNormal"
@@ -14,28 +15,30 @@
             android:id="@+id/cancelTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:text="Cancel"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/dateButton"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="20dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"
             android:layout_weight="0.50"
             android:background="@drawable/white_in_blue_out_button_border"
+            android:elevation="0dp"
             android:text="Date"
             android:textColor="?attr/actionModeSplitBackground" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/timeButton"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="20dp"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="5dp"
@@ -47,33 +50,38 @@
             android:id="@+id/doneTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:text="Done"
             android:textColor="@android:color/holo_blue_dark"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/dateAndTimePickerLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
         <NumberPicker
-            android:id="@+id/numberPicker2"
+            android:id="@+id/leftNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <NumberPicker
-            android:id="@+id/numberPicker3"
+            android:id="@+id/middleNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <NumberPicker
-            android:id="@+id/numberPicker"
+            android:id="@+id/rightNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
