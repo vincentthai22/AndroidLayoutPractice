@@ -37,12 +37,16 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
 
     private ListView newPumpingListView;
     private List<List<String>> pumpingListViewData;  //2-D list to organize headers, cell titles, and user input
-    private PumpingArrayAdapter adapter;
-    private int currentPosition; //store current position to determine which alertDialog will be called
     private AlertDialog.Builder builder;
+    private View amountPumpedView, dateAndTimeView, additionalInfoView;
+
+    private PumpingArrayAdapter adapter;
+
     private AlertDialog dialog;
     private String[] leftNumberPickerValues, rightNumberPickerValues, milliliterNumberPickerValues;
     private boolean isOunces;
+    private int currentPosition; //store current position to determine which alertDialog will be called
+
 
 
     @Override
@@ -118,14 +122,40 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             }
         });
     }
-    
+
+
     public void setupAlertDialogs(){
 
         //--------------------------------------------------SET UP VIEWS--------------------------------------------------//
         builder = new AlertDialog.Builder(this);
+        amountPumpedView = setupAlertDialogForAmountPumpedSection();
+        //dateAndTimeView =
+        //set alert dialog to custom view
+        builder.setView(amountPumpedView);
+        dialog = builder.create();
+    }
+    public View setupAlertDialogForDateAndTimeSection(){
+        LayoutInflater inflater = getLayoutInflater();
+        //View view = inflater.inflate()
+        return null;
+    }
+    /**
+     * @param  NONE
+     * setupAlertDialogsForAmountPumpedSection()
+     *
+     *  sets up the entirety of the alertDialogs which includes:
+     *      custom views
+     *      instantiation of all number pickers
+     *      customization of all number pickers
+     *      onClick handlers for all clickables within the alertDialog
+     *
+     */
+    public View setupAlertDialogForAmountPumpedSection(){
+
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.alert_dialog_custom_view_new_pumping, null);
 
+        //number picker initializers
         final NumberPicker leftNP = (NumberPicker) view.findViewById(R.id.leftNumberPicker);
         final NumberPicker rightNP = (NumberPicker) view.findViewById(R.id.rightNumberPicker);
         final NumberPicker milliliterNP = new NumberPicker(this);
@@ -184,7 +214,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
 
         //-------------------------------------------END OF ON CLICK LISTENERS----------------------------------------//
 
-        //number picker initializers
+        //number picker customizers
         setNumberPickerTextColor(leftNP, Color.BLACK);
         setNumberPickerTextColor(rightNP,Color.BLACK);
         setNumberPickerTextColor(milliliterNP, Color.BLACK);
@@ -211,10 +241,9 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         rightNP.setDisplayedValues(rightNumberPickerValues);
         milliliterNP.setDisplayedValues(milliliterNumberPickerValues);
 
-        //set alert dialog to custom view
-        builder.setView(view);
-        dialog = builder.create();
+        return view;
     }
+
 
     public boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
     {
