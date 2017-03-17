@@ -60,7 +60,23 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-
+    /**
+     * @param  NONE
+     *  setupList()
+     *  Initializes list to place into the adapter to be displayed by the listView.
+     *  List is organized in this manner as a 2-D list:
+     *
+     *              index[i][0]     index[i][1]
+     *  index[0][j] Amount Pumped   someValue
+     *  index[1][j] Left Breast     someValue
+     *  ----------------------------------------
+     *
+     *  As shown above every first index of the 2-D List serves as a cell title and every second index
+     *  holds the user input which is referred to as "someValue".
+     *  This page is designed to have three headers and three cells per header giving us a total of
+     *  twelve rows within this listView.  Every fourth row starting from zero is a section header.
+     *
+     */
     public List<List<String>> setupList(){
         List<List<String>> tempList = new ArrayList<>(); //Need list to fill in ListView
         AssetManager assetManager = getAssets();
@@ -82,6 +98,15 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         return tempList;
     }
 
+    /**
+     * @param NONE
+     * setupListViewListeners()
+     * sets up the onClickListener for the listView
+     * Each varying section results in a different AlertDialog to appear.
+     * Amount Pumped Section -- presents a number picker allowing the user to choose the amount pumped in ounces or milliliters
+     * Date & Time -- presents a DatePicker and TimePicker
+     * Additional Info -- TBD
+     */
     public void setupListViewListeners(){
 
 
@@ -93,7 +118,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             }
         });
     }
-
+    
     public void setupAlertDialogs(){
 
         //--------------------------------------------------SET UP VIEWS--------------------------------------------------//
@@ -190,6 +215,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         builder.setView(view);
         dialog = builder.create();
     }
+
     public boolean setNumberPickerTextColor(NumberPicker numberPicker, int color)
     {
         final int count = numberPicker.getChildCount();
@@ -218,6 +244,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         }
         return false;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
