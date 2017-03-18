@@ -32,11 +32,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by vincent on 3/16/17.
@@ -57,7 +61,6 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
     private int currentPosition,
             amountPumpedSection, dateAndTimeSection, additionalInfoSection, //store current position to determine which alertDialog will be called
             currentSelectedYear, currentSelectedMonth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -111,9 +114,13 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Could not load dictionary", Toast.LENGTH_SHORT);
             toast.show();
         }
-        Log.d("size of temp", tempList.size() + "");
+
+        //default values
+        tempList.get(dateAndTimeSection+1).set(1, new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(new Date()));
+        tempList.get(dateAndTimeSection+2).set(1, new SimpleDateFormat("MM/dd/yyyy hh:mm a").format(new Date()));
         return tempList;
     }
+
 
     /**
      * @param NONE setupListViewListeners()
@@ -146,7 +153,6 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
 
     public void setupAlertDialogs() {
 
-        //--------------------------------------------------SET UP VIEWS--------------------------------------------------//
         builder = new AlertDialog.Builder(this);
         amountPumpedView = setupAlertDialogForAmountPumpedSection();
         dateAndTimeView = setupAlertDialogForDateAndTimeSection();
@@ -178,7 +184,6 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         TextView doneTextView = (TextView) view.findViewById(R.id.doneTextView);
         String[] monthsList = new DateFormatSymbols().getMonths();
         String[] amPmList = new DateFormatSymbols().getAmPmStrings();
-        Calendar now = Calendar.getInstance();
 
         final NumberPicker leftNumberPicker, middleNumberPicker, rightNumberPicker, monthsNumberPicker, amPmNumberPicker;
 
@@ -194,20 +199,31 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         //Set number pickers by default to start on the Date Section
         final int currentYear;
         final int currentMonth;
-        currentSelectedMonth = currentMonth = now.get(Calendar.MONTH);
-        currentSelectedYear = currentYear = now.get(Calendar.YEAR);
+        final Date now = new Date();
+        currentSelectedMonth = currentMonth = Integer.parseInt(new SimpleDateFormat("mm").format(now));
+        currentSelectedYear = currentYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(now));
         leftNumberPicker.setMinValue(0);
         leftNumberPicker.setMaxValue(12);
-        monthsNumberPicker.setValue(currentMonth);
+        leftNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("hh").format(now)));
+
         middleNumberPicker.setMinValue(1);
         middleNumberPicker.setMaxValue(getDaysInMonth(currentMonth, currentYear));
+        middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
+
         rightNumberPicker.setMinValue(currentYear - 1);
         rightNumberPicker.setMaxValue(currentYear);
+        rightNumberPicker.setValue(currentYear);
 
         monthsNumberPicker.setMinValue(0);
         monthsNumberPicker.setMaxValue(monthsList.length - 1);
+        monthsNumberPicker.setValue(currentMonth);
+
         amPmNumberPicker.setMinValue(0);
         amPmNumberPicker.setMaxValue(amPmList.length - 1);
+        if(new SimpleDateFormat("a").format(new Date()) == "AM")
+            amPmNumberPicker.setValue(0);
+        else
+            amPmNumberPicker.setValue(1);
 
         dateAndTimeLinearLayout.removeViewAt(0);
         dateAndTimeLinearLayout.addView(monthsNumberPicker, 0);
@@ -241,7 +257,10 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
                 dateAndTimeLinearLayout.addView(monthsNumberPicker, 0);
                 dateAndTimeLinearLayout.removeViewAt(2);
                 dateAndTimeLinearLayout.addView(rightNumberPicker);
+                monthsNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
+                middleNumberPicker.setMinValue(1);
                 middleNumberPicker.setMaxValue(getDaysInMonth(currentMonth,currentYear));
+                middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("dd").format(now)));
                 dateButton.setBackgroundResource(R.drawable.blue_in_white_out_button_border);
                 dateButton.setTextColor(Color.WHITE);
                 timeButton.setBackgroundResource(R.drawable.white_in_blue_out_button_border);
@@ -255,7 +274,9 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
                 dateAndTimeLinearLayout.addView(leftNumberPicker, 0);
                 dateAndTimeLinearLayout.removeViewAt(2);
                 dateAndTimeLinearLayout.addView(amPmNumberPicker);
+                middleNumberPicker.setMinValue(0);
                 middleNumberPicker.setMaxValue(60);
+                middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
                 timeButton.setBackgroundResource(R.drawable.blue_in_white_out_button_border);
                 timeButton.setTextColor(Color.WHITE);
                 dateButton.setBackgroundResource(R.drawable.white_in_blue_out_button_border);
@@ -273,7 +294,11 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         doneTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String dateString;
+                dateString = monthsNumberPicker.getValue()+1 + "/" + middleNumberPicker.getValue() + "/" + rightNumberPicker.getValue();
+                pumpingListViewData.get(currentPosition).set(1, dateString);
+                dateAndTimeDialogue.dismiss();
+                newPumpingListView.setAdapter(adapter);
             }
         });
 

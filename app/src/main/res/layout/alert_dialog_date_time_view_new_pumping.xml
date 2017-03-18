@@ -30,10 +30,10 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="5dp"
             android:layout_weight="0.50"
-            android:background="@drawable/white_in_blue_out_button_border"
+            android:background="@drawable/blue_in_white_out_button_border"
             android:elevation="0dp"
             android:text="Date"
-            android:textColor="?attr/actionModeSplitBackground" />
+            android:textColor="@android:color/white" />
 
         <Button
             android:id="@+id/timeButton"
@@ -43,8 +43,9 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="5dp"
             android:layout_weight="1"
-            android:background="@drawable/blue_in_white_out_button_border"
-            android:text="Time" />
+            android:background="@drawable/white_in_blue_out_button_border"
+            android:text="Time"
+            android:textColor="@color/colorPrimaryDark" />
 
         <TextView
             android:id="@+id/doneTextView"
