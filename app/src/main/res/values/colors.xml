@@ -6,4 +6,8 @@
     <color name="startButtonBackground">#FFFFB2</color>
     <color name="pumpingHeaderCellBackground">#FF7E00</color>
     <color name="ouncesBackground">#FFA200</color>
+    <color name="colorTimerBg">#fff4f4</color>
+    <color name="colorText">#FFFFFF</color>
+    <color name="colorSectionHeaderBg">#EEEEEE</color>
+    <color name="colorModuleToolbarBg">#EEEEEE</color>
 </resources>

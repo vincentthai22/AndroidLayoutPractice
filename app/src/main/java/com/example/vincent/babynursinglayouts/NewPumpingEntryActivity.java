@@ -3,7 +3,6 @@ package com.example.vincent.babynursinglayouts;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -25,14 +24,11 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
-import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +36,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by vincent on 3/16/17.
@@ -60,7 +55,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
     private boolean isOunces;
     private int currentPosition,
             amountPumpedSection, dateAndTimeSection, additionalInfoSection, //store current position to determine which alertDialog will be called
-            currentSelectedYear, currentSelectedMonth;
+            currentSelectedYear, currentSelectedMonth, days, minutes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -197,30 +192,36 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
         amPmNumberPicker.setDisplayedValues(amPmList);
 
         //Set number pickers by default to start on the Date Section
-        final int currentYear;
-        final int currentMonth;
+        final int currentYear, currentMonth;
         final Date now = new Date();
-        currentSelectedMonth = currentMonth = Integer.parseInt(new SimpleDateFormat("mm").format(now));
+        currentSelectedMonth = currentMonth = Integer.parseInt(new SimpleDateFormat("MM").format(now));
         currentSelectedYear = currentYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(now));
+        minutes = days = 0;
+
+        //hours
         leftNumberPicker.setMinValue(0);
         leftNumberPicker.setMaxValue(12);
         leftNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("hh").format(now)));
 
+        //minutes & days
         middleNumberPicker.setMinValue(1);
         middleNumberPicker.setMaxValue(getDaysInMonth(currentMonth, currentYear));
-        middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
+        middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("dd").format(now)));
 
+        //year
         rightNumberPicker.setMinValue(currentYear - 1);
         rightNumberPicker.setMaxValue(currentYear);
         rightNumberPicker.setValue(currentYear);
 
+        //month
         monthsNumberPicker.setMinValue(0);
         monthsNumberPicker.setMaxValue(monthsList.length - 1);
-        monthsNumberPicker.setValue(currentMonth);
+        monthsNumberPicker.setValue(currentMonth-1);
 
+        //am/pm
         amPmNumberPicker.setMinValue(0);
         amPmNumberPicker.setMaxValue(amPmList.length - 1);
-        if(new SimpleDateFormat("a").format(new Date()) == "AM")
+        if(new SimpleDateFormat("a").format(new Date()).toUpperCase().trim().equals("AM"))
             amPmNumberPicker.setValue(0);
         else
             amPmNumberPicker.setValue(1);
@@ -250,6 +251,13 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             }
         });
 
+        middleNumberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+
+            }
+        });
+
         dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,14 +265,19 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
                 dateAndTimeLinearLayout.addView(monthsNumberPicker, 0);
                 dateAndTimeLinearLayout.removeViewAt(2);
                 dateAndTimeLinearLayout.addView(rightNumberPicker);
-                monthsNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
-                middleNumberPicker.setMinValue(1);
-                middleNumberPicker.setMaxValue(getDaysInMonth(currentMonth,currentYear));
-                middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("dd").format(now)));
+                monthsNumberPicker.setValue(currentMonth-1);
                 dateButton.setBackgroundResource(R.drawable.blue_in_white_out_button_border);
                 dateButton.setTextColor(Color.WHITE);
                 timeButton.setBackgroundResource(R.drawable.white_in_blue_out_button_border);
                 timeButton.setTextColor(Color.BLUE);
+                minutes = middleNumberPicker.getValue();
+                middleNumberPicker.setMinValue(1);
+                middleNumberPicker.setMaxValue(getDaysInMonth(currentMonth,currentYear));
+                if (days == 0)
+                    middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("dd").format(now)));
+                else
+                    middleNumberPicker.setValue(days);
+
             }
         });
         timeButton.setOnClickListener(new View.OnClickListener() {
@@ -274,13 +287,23 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
                 dateAndTimeLinearLayout.addView(leftNumberPicker, 0);
                 dateAndTimeLinearLayout.removeViewAt(2);
                 dateAndTimeLinearLayout.addView(amPmNumberPicker);
-                middleNumberPicker.setMinValue(0);
-                middleNumberPicker.setMaxValue(60);
-                middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
                 timeButton.setBackgroundResource(R.drawable.blue_in_white_out_button_border);
                 timeButton.setTextColor(Color.WHITE);
                 dateButton.setBackgroundResource(R.drawable.white_in_blue_out_button_border);
                 dateButton.setTextColor(Color.BLUE);
+                Log.d("ampm", new SimpleDateFormat("a").format(new Date()));
+                if(new SimpleDateFormat("a").format(new Date()).toUpperCase().trim().equals("AM"))
+                    amPmNumberPicker.setValue(0);
+                else
+                    amPmNumberPicker.setValue(1);
+                days = middleNumberPicker.getValue();
+                middleNumberPicker.setMinValue(0);
+                middleNumberPicker.setMaxValue(60);
+                if (minutes == 0)
+                    middleNumberPicker.setValue(Integer.parseInt(new SimpleDateFormat("mm").format(now)));
+                else
+                    middleNumberPicker.setValue(minutes);
+
             }
         });
 
@@ -288,6 +311,7 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dateAndTimeDialogue.dismiss();
+                minutes = days = 0;
             }
         });
 
@@ -295,10 +319,13 @@ public class NewPumpingEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String dateString;
-                dateString = monthsNumberPicker.getValue()+1 + "/" + middleNumberPicker.getValue() + "/" + rightNumberPicker.getValue();
+                dateString = monthsNumberPicker.getValue()+1 + "/" + days + "/" + rightNumberPicker.getValue() +
+                        " " + leftNumberPicker.getValue() + ":" + minutes +
+                        " " + amPmNumberPicker.getDisplayedValues()[amPmNumberPicker.getValue()];
                 pumpingListViewData.get(currentPosition).set(1, dateString);
                 dateAndTimeDialogue.dismiss();
                 newPumpingListView.setAdapter(adapter);
+                minutes = days = 0;
             }
         });
 
